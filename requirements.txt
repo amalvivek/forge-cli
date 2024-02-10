@@ -1,2 +1,3 @@
 octoai-sdk
 python-dotenv
+setuptools
