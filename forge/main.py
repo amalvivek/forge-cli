@@ -17,19 +17,20 @@ def execute():
         messages=[
             {
                 "role": "system",
-                "content": "You are bash scripting, your output will be used directly on the command line, therefore "
-                           "only provide the command and do not explain the command."
+                "content": "Pretend you are scripting in a unix shell. I will give you a task and you will provide the "
+                           "command to perform that task. Output the command to be run in triple backticks like "
+                           "this: ```<shell command>```. Do not provide any other text or explanation of the command."
             },
             {
                 "role": "user",
-                "content": "The task: " + ' '.join(sys.argv[1:])
+                "content": "The task: " + ' '.join(sys.argv[4:])
             }
         ],
-        model="mixtral-8x7b-instruct-fp16",
+        model="mixtral-8x7b-instruct",
         max_tokens=128,
         presence_penalty=0,
-        temperature=0.5,
-        top_p=0.2,
+        temperature=0.1,
+        top_p=0.1
     )
 
     res = completion.__dict__['choices'][0].__dict__['message'].__dict__['content']
@@ -58,3 +59,5 @@ def execute():
         print(result.stderr)
 
 
+if __name__ == "__main__":
+    execute()
